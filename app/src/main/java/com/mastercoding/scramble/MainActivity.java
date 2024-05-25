@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import java.util.Random;
+import com.airbnb.lottie.LottieAnimationView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -56,6 +58,8 @@ public class MainActivity extends AppCompatActivity {
     private Button buttonBackToMainMenu; // Button to go back to main menu
     private TextView textViewScore;
     private TextView textViewTimer;
+    private LottieAnimationView animationViewCorrect;
+    private LottieAnimationView animationViewWrong;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +73,8 @@ public class MainActivity extends AppCompatActivity {
         buttonBackToMainMenu = findViewById(R.id.buttonBackToMainMenu); // Initialize back to main menu button
         textViewScore = findViewById(R.id.textViewScore);
         textViewTimer = findViewById(R.id.textViewTimer);
+        animationViewCorrect = findViewById(R.id.animation_view_correct);
+//        animationViewWrong = findViewById(R.id.animation_view_wrong);
 
         buttonSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -130,6 +136,12 @@ public class MainActivity extends AppCompatActivity {
                 startTimer(); // Restart timer with updated time
             }
             chooseRandomWord(); // Choose a new word
+            animationViewCorrect.setVisibility(View.VISIBLE);
+            animationViewCorrect.setAlpha(1f);
+            animationViewCorrect.playAnimation();
+            int animationDuration = 2000; // 2 seconds in milliseconds
+
+            new Handler().postDelayed(() -> fadeOutAnimation(animationViewCorrect), animationDuration);
         } else {
             // Handle incorrect guess
             if (score > 0) {
@@ -143,6 +155,10 @@ public class MainActivity extends AppCompatActivity {
         }
         chooseRandomWord();
         editTextGuess.getText().clear();
+    }
+
+    private void fadeOutAnimation(LottieAnimationView animationView) {
+        animationView.animate().alpha(0f).setDuration(500).withEndAction(() -> animationView.pauseAnimation());
     }
 
     private void startTimer() {
