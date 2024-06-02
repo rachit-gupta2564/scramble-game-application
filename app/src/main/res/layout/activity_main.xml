@@ -58,6 +58,22 @@
         app:lottie_rawRes="@raw/correct"
         tools:ignore="MissingConstraints" />
 
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animation_view_incorrect"
+        android:layout_width="253dp"
+        android:layout_height="76dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="64dp"
+        android:visibility="visible"
+        app:layout_constraintEnd_toStartOf="@+id/textViewScore"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toEndOf="@+id/textViewTimer"
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_autoPlay="false"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/incorrect"
+        tools:ignore="MissingConstraints" />
+
     <TextView
         android:id="@+id/textViewScrambledWord"
         android:layout_width="match_parent"

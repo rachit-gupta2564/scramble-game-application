@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView textViewScore;
     private TextView textViewTimer;
     private LottieAnimationView animationViewCorrect;
-    private LottieAnimationView animationViewWrong;
+    private LottieAnimationView animationViewIncorrect;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
         textViewScore = findViewById(R.id.textViewScore);
         textViewTimer = findViewById(R.id.textViewTimer);
         animationViewCorrect = findViewById(R.id.animation_view_correct);
-//        animationViewWrong = findViewById(R.id.animation_view_wrong);
+        animationViewIncorrect = findViewById(R.id.animation_view_incorrect);
 
         buttonSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -152,6 +152,12 @@ public class MainActivity extends AppCompatActivity {
                 timeLeft -= 10;
                 startTimer(); // Update timer display
             }
+            animationViewIncorrect.setVisibility(View.VISIBLE);
+            animationViewIncorrect.setAlpha(1f);
+            animationViewIncorrect.playAnimation();
+            int animationDuration = 2000; // 2 seconds in milliseconds
+
+            new Handler().postDelayed(() -> fadeOutAnimation(animationViewIncorrect), animationDuration);
         }
         chooseRandomWord();
         editTextGuess.getText().clear();
